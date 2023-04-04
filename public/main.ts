@@ -1,7 +1,7 @@
 import { mat4 } from "./lib/gl-matrix-min.js";
 import { Cube } from "./models/cube";
 
-const lightLocation = [10, 10, 0];
+const lightLocation = [10, 10, -10];
 
 const createCubeGrid = (rows: number, cols: number, size: number) => {
   const cubes: Cube[] = [];
@@ -40,7 +40,7 @@ if (!gl) {
 Cube.createProgram(gl);
 gl.enable(gl.DEPTH_TEST);
 
-const cubes = createCubeGrid(60, 60, 0.2);
+const cubes = createCubeGrid(60, 60, 1);
 
 const projectionMatrix = mat4.create();
 const viewMatrix = mat4.create();

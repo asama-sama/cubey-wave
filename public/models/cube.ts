@@ -55,7 +55,7 @@ export class Cube {
     Cube.gl.uniformMatrix4fv(Cube.uniforms.mvpMatrixLocation, false, mvpMatrix);
 
     const varySin = Math.sin(
-      this.centerInitial[0] + this.centerInitial[2] + Cube.t / 50.0
+      1.15 * (this.centerInitial[0] + this.centerInitial[2] + Cube.t / 50.0)
     );
     Cube.gl.uniform1f(Cube.uniforms.varySinLoc, varySin);
 
