@@ -1,1 +1,0 @@
-{"mappings":"ACAA,cAIA","sources":["index.d9384e5a.css","public/main.css"],"sourcesContent":["body {\n  margin: 0;\n}\n\ncanvas {\n  background-color: #000;\n}\n\n/*# sourceMappingURL=index.d9384e5a.css.map */\n","body {\n  margin: 0;\n}\n\ncanvas {\n  background-color: black;\n}\n"],"names":[],"version":3,"file":"index.d9384e5a.css.map"}
