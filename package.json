@@ -20,5 +20,10 @@
   },
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "targets": {
+    "default": {
+      "distDir": "docs"
+    }
   }
 }
