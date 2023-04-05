@@ -1,10 +1,10 @@
 precision mediump float;
+
 varying vec3 vVertex;
 varying vec3 vNormal;
+varying vec3 boxColor;
 
 uniform vec3 uLightPos;
-
-varying vec3 boxColor;
 
 void main() {
   vec3 toLight;

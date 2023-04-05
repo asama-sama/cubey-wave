@@ -13,9 +13,8 @@ varying vec3 vVertex;
 varying vec3 boxColor;
 
 void main() {
-  float normalisedSin;
-
   vVertex = vec3(vertex.x, vertex.y + varySin, vertex.z);
+  
   vNormal = vec3(normal.x, normal.y + varySin, normal.z );
 
   boxColor = uBoxColor;
