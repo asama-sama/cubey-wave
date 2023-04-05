@@ -40,7 +40,7 @@ if (!gl) {
 Cube.createProgram(gl);
 gl.enable(gl.DEPTH_TEST);
 
-const cubes = createCubeGrid(60, 60, 1);
+const cubes = createCubeGrid(20, 20, 1);
 
 const projectionMatrix = mat4.create();
 const viewMatrix = mat4.create();
