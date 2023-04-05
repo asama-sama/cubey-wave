@@ -10,8 +10,10 @@ export class Cube {
   static gl: WebGLRenderingContext;
   static uniforms = {
     mvpMatrixLocation: null,
-    varySinLoc: null,
+    modelMatrixLocation: null,
+    varySinPosition: null,
     lightPosition: null,
+    boxColorPosition: null,
   };
   static t = 0;
   static lightPosition: number[];
@@ -53,11 +55,21 @@ export class Cube {
     Cube.gl.bufferData(Cube.gl.ARRAY_BUFFER, this.normals, Cube.gl.STATIC_DRAW);
 
     Cube.gl.uniformMatrix4fv(Cube.uniforms.mvpMatrixLocation, false, mvpMatrix);
-
-    const varySin = Math.sin(
-      1.15 * (this.centerInitial[0] + this.centerInitial[2] + Cube.t / 50.0)
+    Cube.gl.uniformMatrix4fv(
+      Cube.uniforms.modelMatrixLocation,
+      false,
+      this.positionMatrix
     );
-    Cube.gl.uniform1f(Cube.uniforms.varySinLoc, varySin);
+
+    const varySin =
+      (Math.sin(
+        1.15 * (this.centerInitial[0] + this.centerInitial[2] + Cube.t)
+      ) +
+        1) /
+      2;
+    Cube.gl.uniform1f(Cube.uniforms.varySinPosition, varySin);
+    const boxColor = [1.0 - varySin, varySin, 1.0 - 0.5 * varySin];
+    Cube.gl.uniform3fv(Cube.uniforms.boxColorPosition, boxColor);
 
     Cube.gl.uniform3fv(Cube.uniforms.lightPosition, Cube.lightPosition);
 
@@ -94,11 +106,17 @@ export class Cube {
     const mvpMatrixLocation = gl.getUniformLocation(program, "mvpMatrix");
     this.uniforms.mvpMatrixLocation = mvpMatrixLocation;
 
+    const modelMatrixLocation = gl.getUniformLocation(program, "modelMatrix");
+    this.uniforms.modelMatrixLocation = modelMatrixLocation;
+
     const varySin = gl.getUniformLocation(program, "varySin");
-    this.uniforms.varySinLoc = varySin;
+    this.uniforms.varySinPosition = varySin;
 
     const lightPosition = gl.getUniformLocation(program, "uLightPos");
     this.uniforms.lightPosition = lightPosition;
+
+    const boxColorPosition = gl.getUniformLocation(program, "uBoxColor");
+    this.uniforms.boxColorPosition = boxColorPosition;
 
     gl.useProgram(program);
     this.gl = gl;

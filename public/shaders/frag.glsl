@@ -1,22 +1,21 @@
 precision mediump float;
 varying vec3 vVertex;
 varying vec3 vNormal;
-uniform float varySin;
 
 uniform vec3 uLightPos;
+
+varying vec3 boxColor;
 
 void main() {
   vec3 toLight;
   vec3 color;
   float cosAngle;
-  float normalisedSin;
 
-  toLight = uLightPos - vVertex;
-  cosAngle = dot(toLight, normalize(vNormal));
+  toLight = uLightPos - vVertex; // normalize
+  cosAngle = dot(normalize(toLight), normalize(vNormal));
   cosAngle = clamp(cosAngle, 0.0, 1.0);
 
-  normalisedSin = (varySin + 1.0)/2.0;
-  color = cosAngle * vec3(1.0 - normalisedSin, normalisedSin, 1.0 - 0.5 * normalisedSin);
+  color = cosAngle * boxColor;
 
   gl_FragColor = vec4(color,1);
 }

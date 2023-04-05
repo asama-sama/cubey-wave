@@ -1,7 +1,7 @@
 import { mat4 } from "./lib/gl-matrix-min.js";
 import { Cube } from "./models/cube";
 
-const lightLocation = [10, 10, -10];
+const lightLocation = [0, 20, -10];
 
 const createCubeGrid = (rows: number, cols: number, size: number) => {
   const cubes: Cube[] = [];
@@ -53,22 +53,25 @@ mat4.perspective(
   1e4 // far
 );
 
-const mvMatrix = mat4.create();
-const mvpMatrix = mat4.create();
+const vpMatrix = mat4.create();
 
 mat4.rotateX(viewMatrix, viewMatrix, 1);
 mat4.translate(viewMatrix, viewMatrix, [0, -2, -12]);
+mat4.multiply(vpMatrix, projectionMatrix, viewMatrix);
 
+let lastT = Date.now();
+const speed = 0.002;
 let t = 0;
 const animate = () => {
   requestAnimationFrame(animate);
 
+  const newT = Date.now();
+  t += (newT - lastT) * speed;
+  lastT = newT;
   Cube.setT(t);
+
   for (const cube of cubes) {
-    mat4.multiply(mvMatrix, viewMatrix, cube.getPosition());
-    mat4.multiply(mvpMatrix, projectionMatrix, mvMatrix);
-    cube.render(mvpMatrix);
+    cube.render(vpMatrix);
   }
-  t++;
 };
 animate();
