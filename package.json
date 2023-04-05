@@ -4,9 +4,10 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
+    "build": "parcel build public/index.html",
     "prestart": "npm run build",
-    "start": "parcel public/index.html"
+    "start": "node main.js",
+    "dev": "parcel public/index.html"
   },
   "author": "",
   "license": "ISC",
@@ -19,5 +20,11 @@
   },
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "targets": {
+    "default": {
+      "distDir": "./docs",
+      "publicUrl": "./"
+    }
   }
 }
