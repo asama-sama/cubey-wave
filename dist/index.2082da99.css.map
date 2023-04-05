@@ -1,0 +1,1 @@
+{"mappings":"AAAA;;;;AAIA","sources":["public/main.css"],"sourcesContent":["body {\n  margin: 0;\n}\n\ncanvas {\n  background-color: black;\n}\n"],"names":[],"version":3,"file":"index.2082da99.css.map","sourceRoot":"/__parcel_source_root/"}

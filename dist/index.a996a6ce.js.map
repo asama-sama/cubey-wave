@@ -1,0 +1,1 @@
+{"mappings":"AAAA,uDAAuD;AAEvD,QAAQ,GAAG,CAAC","sources":["public/main.ts"],"sourcesContent":["// import { mat4, vec4 } from  './lib/gl-matrix-min.js'\n\nconsole.log('test')"],"names":[],"version":3,"file":"index.a996a6ce.js.map","sourceRoot":"/__parcel_source_root/"}
