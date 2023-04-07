@@ -1,5 +1,6 @@
 import { mat4 } from "./lib/gl-matrix-min.js";
 import { Cube } from "./models/cube";
+import { isMobile } from "./utils";
 
 const lightLocation = [0, 20, -10];
 
@@ -7,16 +8,13 @@ const createCubeGrid = (rows: number, cols: number, size: number) => {
   const cubes: Cube[] = [];
   for (let i = 0; i < cols; i++) {
     for (let j = 0; j < rows; j++) {
-      const cube = Cube.createCube(size);
+      const cube = Cube.createCube(size / 2);
 
       const cubePosition = mat4.create();
       const offsetX = (cols * size) / 2;
+      const offsetZ = (rows * size) / 2;
 
-      mat4.translate(cubePosition, cubePosition, [
-        i * size - offsetX,
-        -3,
-        j * size,
-      ]);
+      mat4.translate(cubePosition, cubePosition, [i * size, -3, j * size]);
       cube.setPosition(cubePosition);
       cube.setCenterInitial([
         (2 * size + i * size) / 2,
@@ -40,7 +38,17 @@ if (!gl) {
 Cube.createProgram(gl);
 gl.enable(gl.DEPTH_TEST);
 
-const cubes = createCubeGrid(20, 20, 1);
+let rows: number, cols: number, size: number;
+if (isMobile()) {
+  rows = 5;
+  cols = 5;
+  size = 1;
+} else {
+  rows = 20;
+  cols = 20;
+  size = 1;
+}
+const cubes = createCubeGrid(rows, cols, size);
 
 const projectionMatrix = mat4.create();
 const viewMatrix = mat4.create();
@@ -55,8 +63,11 @@ mat4.perspective(
 
 const vpMatrix = mat4.create();
 
-mat4.rotateX(viewMatrix, viewMatrix, 1);
-mat4.translate(viewMatrix, viewMatrix, [0, -2, -12]);
+const offsetX = (rows * size) / 2;
+const offsetZ = (cols * size) / 2;
+
+mat4.rotateX(viewMatrix, viewMatrix, Math.PI / 4);
+mat4.translate(viewMatrix, viewMatrix, [-offsetX, -3, -offsetZ * 2]);
 mat4.multiply(vpMatrix, projectionMatrix, viewMatrix);
 
 let lastT = Date.now();
